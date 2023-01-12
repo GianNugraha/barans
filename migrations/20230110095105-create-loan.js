@@ -2,33 +2,37 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('loans', {
       id: {
         allowNull: false,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      username: {
-        type: Sequelize.STRING
+      BookId: {
+        type: Sequelize.UUID,
+        field: "book_id",
       },
-      email: {
-        type: Sequelize.STRING
+      UserId: {
+        type: Sequelize.UUID,
+        field: "user_id",
       },
-      password: {
-        type: Sequelize.STRING
+      deadline: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        field: "created_at",
+        type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
+        field: "updated_at",
         type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('loans');
   }
 };

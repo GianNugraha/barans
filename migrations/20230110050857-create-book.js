@@ -2,42 +2,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('articles', {
+    await queryInterface.createTable('books', {
       id: {
         allowNull: false,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      type: {
-        type: Sequelize.STRING
-      },
-      url: {
-        type: Sequelize.STRING
-      },
-      company: {
-        type: Sequelize.STRING
-      },
-      companyUrl: {
-        type: Sequelize.STRING,
-        field: "company_url",
-      },
-      location: {
+      code: {
         type: Sequelize.STRING
       },
       title: {
         type: Sequelize.STRING
       },
-      description: {
-        type: Sequelize.TEXT
+      author: {
+        type: Sequelize.STRING
       },
-      howToApply: {
-        type: Sequelize.TEXT,
-        field: "how_to_apply",
+      isExist: {
+        type: Sequelize.BOOLEAN,
+        field: "is_exist",
+        defaultValue: true
       },
-      companyLogo: {
-          type: Sequelize.STRING,
-          field: "company_logo",
+      stock: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -52,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('articles');
+    await queryInterface.dropTable('books');
   }
 };

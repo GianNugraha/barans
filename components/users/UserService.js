@@ -8,22 +8,20 @@ class UserService {
   static async login(data) {
     try {
       let findUser;
-      if (data.username) {
-        findUser = await UserRepository.findUser({ username: data.username });
-      } else {
-        findUser = await UserRepository.findUser({ email: data.email });
+      if (data.name) {
+        findUser = await UserRepository.findUser({ name: data.name });
       }
       if (!findUser) {
-        throw { api: 'user', message: 'notFound-login' };
+        throw { api: 'user', message: 'notFound-login, name not found !' };
       }
-      if (!bcrypt.compareSync(data.password, findUser.password)) {
-        throw { api: 'user', message: 'forbidden-login' };
+      if (data.code != findUser.code) {
+        throw { api: 'user', message: 'forbidden-login , wrong code !' };
       }
    
       const datum = {
         id: findUser.id,
-        username: findUser.username,
-        email: findUser.email,
+        name: findUser.name,
+        code: findUser.code,
       }
       const access_token = jwt.sign(datum, secretkey);
       return { 
@@ -34,6 +32,10 @@ class UserService {
     } catch (error) {
       throw error;
     }
+  }
+
+  static async getAllMember() {
+    return UserRepository.getAllMember();
   }
 
 }

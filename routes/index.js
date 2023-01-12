@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const errorHandlers = require("../middlewares/errorHandlers");
-const articleRoutes = require("./articles");
 const userRoutes = require("./user");
+const bookRoutes = require("./book");
+// const loanRoutes = require("./loan");
 
 
 router.use("/api/login", userRoutes);
-// router.use('/register', userRoutes);
-router.use("/api/articles", articleRoutes);
+router.use("/api/member", userRoutes);
+router.use("/api/book", bookRoutes);
 
 router.use(errorHandlers);
 

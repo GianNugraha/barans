@@ -1,12 +1,12 @@
-require('dotenv').config();
-const UserService = require('./UserService');
+require("dotenv").config();
+const UserService = require("./UserService");
 
 class UserController {
   static async login(req, res, next) {
     try {
-      const { username, password } = req.body;
-      if (!password) {
-        throw { api: 'user', message: 'badRequest-login' };
+      const { name, code } = req.body;
+      if (!code) {
+        throw { api: "user", message: "badRequest-login" };
       }
       // const data = { condition, password };
       const signRes = await UserService.login(req.body);
@@ -18,7 +18,14 @@ class UserController {
     }
   }
 
-    
+  static async getMember(req, res, next) {
+    try {
+      const Member = await UserService.getAllMember();
+      res.status(200).json(Member);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = UserController;
